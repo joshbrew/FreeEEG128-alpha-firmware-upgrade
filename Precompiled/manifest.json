@@ -1,0 +1,46 @@
+{
+  "board": "FreeEEG128-alpha STM32H743ZI",
+  "version": "qos-5-uf2-v1",
+  "hardware_validated": false,
+  "build_id": "8cb4fd5b726f79b92d45fa7976746c81",
+  "compiler": "arm-none-eabi-gcc.exe (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 14.2.1 20241119",
+  "settings_address": "0x081c0000",
+  "idle_mode": "spin (optional WFI disabled by default)",
+  "application_clocks": {
+    "cpu_mhz": 80,
+    "ahb_mhz": 40,
+    "apb_mhz": 20,
+    "usb_mhz": 48,
+    "adc_mclk_hz": 8192000,
+    "primary_pll_source": "HSE-bypass",
+    "hse_hz": 8192000,
+    "fallback_pll_source": "HSI",
+    "hsi_nominal_hz": 64000000,
+    "spi_hz": 8192000,
+    "fallback_spi_nominal_hz": 8000000,
+    "revision_v_required": false,
+    "fallback_on_non_v": null
+  },
+  "bootloader_cpu_mhz": 80,
+  "bootloader_pll_source": "HSI",
+  "application_address": "0x8020000",
+  "maximum_application_bytes": 786432,
+  "files": {
+    "freeeeg128-factory.hex": {
+      "bytes": 210851,
+      "sha256": "de91b8ac60da0cd3b3db9c70d5fab093de2ebadc1d2e965a4c73b2912750fbff"
+    },
+    "freeeeg128-application.uf2": {
+      "bytes": 119808,
+      "sha256": "7e7dc1d45986201198fbac08bb33f35f4d8a6ad3c3d5d9653a031adcd155e4ac"
+    },
+    "freeeeg128-application.hex": {
+      "bytes": 144362,
+      "sha256": "35e309e3f52655c00b1192b2cc9044eb2767635f53cd4194236366e3a7ef5869"
+    },
+    "freeeeg128-bootloader.hex": {
+      "bytes": 66502,
+      "sha256": "6ab65a35e0b3eb9597aa948d265e4c80abc63943a73e9d53b0bdb93ba8d92cc6"
+    }
+  }
+}

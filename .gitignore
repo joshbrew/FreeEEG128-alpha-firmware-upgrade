@@ -1,0 +1,10 @@
+/Firmware/work/
+/Firmware/build/
+__pycache__/
+*.pyc
+/.tools/
+/.venv/
+/reports/
+Thumbs.db
+Desktop.ini
+.DS_Store

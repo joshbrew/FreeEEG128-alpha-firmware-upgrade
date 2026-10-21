@@ -1,0 +1,4 @@
+STMicroelectronics/stm32-mw-usb-device
+Commit: 228c5c57ea7089f9fb647ba9f92e10dabcfebbff (v2.6.0)
+Archive SHA256: a383eca887a9f796576033c435b4c3a101892c75795a62ba062b4c68d83f4185
+Only Class/MSC and license files are vendored.

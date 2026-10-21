@@ -1,0 +1,125 @@
+name: Firmware build and simulation
+on:
+  workflow_dispatch:
+  push:
+    paths: ['Firmware/**', 'Flash/**', 'FreeEEG128*', 'README.md', 'Precompiled/README.md', 'SetupGuides/**', '.gitattributes', '.github/workflows/firmware.yml']
+  pull_request:
+    paths: ['Firmware/**', 'Flash/**', 'FreeEEG128*', 'README.md', 'Precompiled/README.md', 'SetupGuides/**', '.gitattributes', '.github/workflows/firmware.yml']
+permissions:
+  contents: read
+concurrency:
+  group: firmware-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  launchers:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test platform launchers without hardware or tool installation
+        run: python -m unittest discover -s Flash/tests -v
+      - name: Test discovery, USB update and settings without hardware
+        run: python -m unittest discover -s Firmware/Alpha/tests -v
+  uf2:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        cpu_mhz: [40, 80, 160, 240, 320, 400, 480]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+      - name: Check repository layout
+        run: python Firmware/tools/check_layout.py
+      - name: Python tests
+        run: |
+          python -m unittest discover -s Firmware/Alpha/tests -v
+          python -m unittest discover -s Firmware/UF2/tests -v
+      - name: Native firmware simulations
+        run: python Firmware/Alpha/tests/run_native.py
+      - name: Build UF2 and factory bundle
+        run: python Firmware/UF2/build.py --cpu-mhz ${{ matrix.cpu_mhz }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: freeeeg128-uf2-${{ matrix.cpu_mhz }}mhz-board-test-candidate
+          path: |
+            Firmware/build/uf2/freeeeg128-uf2-release.zip
+            Firmware/build/uf2/manifest.json
+          if-no-files-found: error
+  publish:
+    name: Update precompiled downloads and rolling alpha
+    needs: [launchers, uf2]
+    if: >-
+      github.repository == 'joshbrew/FreeEEG128-alpha' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: freeeeg128-uf2-80mhz-board-test-candidate
+          path: Firmware/build/publish
+      - name: Commit verified downloads and update the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          head_sha=$(git ls-remote origin refs/heads/main | cut -f1)
+          if [[ "$head_sha" != "$GITHUB_SHA" ]]; then
+            echo 'A newer commit is on main; its workflow will publish the downloads.'
+            exit 0
+          fi
+          python Firmware/UF2/precompiled.py --bundle Firmware/build/publish/freeeeg128-uf2-release.zip
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- Precompiled/
+          if ! git diff --cached --quiet; then
+            git commit -m "Update 80 MHz firmware downloads for ${GITHUB_SHA:0:12}"
+            # No force push: if main advanced during validation, publishing stops.
+            git push origin HEAD:main
+          fi
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          manifest = json.loads(Path('Precompiled/manifest.json').read_text())
+          repo, sha = os.environ['GITHUB_REPOSITORY'], os.environ['GITHUB_SHA']
+          run = f"https://github.com/{repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          notes = f"""Latest default **80 MHz** build from [`{sha[:12]}`](https://github.com/{repo}/commit/{sha}).
+
+          - **freeeeg128-uf2-release.zip**: complete package with Windows/Linux setup and flashing launchers.
+          - **freeeeg128-factory.hex**: EEG firmware + UF2 bootloader; install/recover with ST-Link (menu 3).
+          - **freeeeg128-application.uf2**: USB application update with the loader already installed (menu 5 or double-reset).
+          - **manifest.json / SHA256SUMS.txt**: build identity and checksums.
+
+          Build ID: `{manifest['build_id']}`. Compiler: {manifest['compiler']}.
+          All seven firmware clock-profile builds/simulations and Windows/Linux helper checks passed in [this workflow]({run}).
+          The same default files are tracked in [Precompiled/](https://github.com/{repo}/tree/main/Precompiled).
+          This rolling alpha is replaced after successful pushes to main. Physical-board validation remains pending.
+          """
+          Path('Firmware/build/publish/release-notes.md').write_text(notes, encoding='utf-8')
+          PY
+          assets=(Precompiled/freeeeg128-factory.hex Precompiled/freeeeg128-application.uf2 Precompiled/freeeeg128-uf2-release.zip Precompiled/manifest.json Precompiled/SHA256SUMS.txt)
+          if gh release view latest-alpha --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload latest-alpha "${assets[@]}" --repo "$GITHUB_REPOSITORY" --clobber
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/latest-alpha" -f sha="$GITHUB_SHA" -F force=true
+            gh release edit latest-alpha --repo "$GITHUB_REPOSITORY" --title 'Latest alpha - 80 MHz' --notes-file Firmware/build/publish/release-notes.md --prerelease
+          else
+            gh release create latest-alpha "${assets[@]}" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title 'Latest alpha - 80 MHz' --notes-file Firmware/build/publish/release-notes.md --prerelease
+          fi

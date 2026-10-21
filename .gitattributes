@@ -1,0 +1,20 @@
+# Keep maintained launchers runnable after a Windows or Linux checkout.
+FreeEEG128.sh text eol=lf
+Flash/Linux/*.sh text eol=lf
+Firmware/tools/*.sh text eol=lf
+FreeEEG128.cmd text eol=crlf
+Flash/Windows/*.cmd text eol=crlf
+Firmware/Alpha/flash.cmd text eol=crlf
+
+
+# Preserve historical source and PCB bytes through the folder rearrangement.
+/Firmware/Legacy/STM32CubeIDE/** -text
+/AssemblyFiles/KiCAD/** -text
+/AssemblyFiles/datasheets/** -text
+
+# Preserve published firmware bytes and checksums across platforms.
+Precompiled/*.zip binary
+Precompiled/*.hex -text whitespace=cr-at-eol
+Precompiled/*.uf2 binary
+Precompiled/manifest.json -text whitespace=cr-at-eol
+Precompiled/SHA256SUMS.txt -text
