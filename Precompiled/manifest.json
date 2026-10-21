@@ -2,8 +2,8 @@
   "board": "FreeEEG128-alpha STM32H743ZI",
   "version": "qos-5-uf2-v1",
   "hardware_validated": false,
-  "build_id": "8cb4fd5b726f79b92d45fa7976746c81",
-  "compiler": "arm-none-eabi-gcc.exe (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 14.2.1 20241119",
+  "build_id": "2c666be8ec52237e5e93a9f11a3d485a",
+  "compiler": "arm-none-eabi-gcc (15:13.2.rel1-2) 13.2.1 20231009",
   "settings_address": "0x081c0000",
   "idle_mode": "spin (optional WFI disabled by default)",
   "application_clocks": {
@@ -27,20 +27,20 @@
   "maximum_application_bytes": 786432,
   "files": {
     "freeeeg128-factory.hex": {
-      "bytes": 210851,
-      "sha256": "de91b8ac60da0cd3b3db9c70d5fab093de2ebadc1d2e965a4c73b2912750fbff"
+      "bytes": 217656,
+      "sha256": "db327c13bee99306408652aa4646d8507a9927ae4c0f82e7b66800c57ea0b3f3"
     },
     "freeeeg128-application.uf2": {
-      "bytes": 119808,
-      "sha256": "7e7dc1d45986201198fbac08bb33f35f4d8a6ad3c3d5d9653a031adcd155e4ac"
+      "bytes": 124416,
+      "sha256": "4182aadc00acccf9787229d570031782d7fda67a80da968d50cba0cb61b66293"
     },
     "freeeeg128-application.hex": {
-      "bytes": 144362,
-      "sha256": "35e309e3f52655c00b1192b2cc9044eb2767635f53cd4194236366e3a7ef5869"
+      "bytes": 147956,
+      "sha256": "58b9c9edda05d0070257165f7d5677876415d9a090f7578b3af356db85321a3d"
     },
     "freeeeg128-bootloader.hex": {
-      "bytes": 66502,
-      "sha256": "6ab65a35e0b3eb9597aa948d265e4c80abc63943a73e9d53b0bdb93ba8d92cc6"
+      "bytes": 69712,
+      "sha256": "f3b0a45a56b4de9428fb8be6c32cb43bd6270ab67aafd2f1b081c3f84ffda5f5"
     }
   }
 }
