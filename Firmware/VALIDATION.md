@@ -19,7 +19,7 @@ ADC alignment, USB throughput or safe recovery from real power loss.
 | UF2 updater simulation | Actual updater passes reordered/duplicate/missing/bad blocks, CRC rejection, FAT12 reads, 51 upload and 51 install interruption points, ECC faults and preservation of loader/settings |
 | Arm GNU 14.2.1 build | Loader + relocated application builds checked at all seven profiles (40/80/160/240/320/400/480 MHz). Standalone application build checked separately |
 | Release contents | UF2 re-read by the USB updater's validator; image hashes, sparse HEX addresses, launchers, controls, wiring and licenses checked |
-| Wiring diagram | Supplied photo matches the repository original; J1/J2 pin numbers checked against the PCB. SVG rendered to PNG and visually reviewed; all 638 relocated originals match their original Git blobs |
+| Wiring diagram | Supplied photo matches the repository original; J1/J2 pin numbers checked against the PCB. Corrected swapped photo callouts; enlarged component-side view matches FreeEEG32 and labels all five individual pin bases. SVG rendered to PNG and visually reviewed; all 638 relocated originals match their original Git blobs |
 
 Run from the repository root:
 

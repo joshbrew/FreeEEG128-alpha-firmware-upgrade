@@ -4,8 +4,16 @@
 
 ## Verified target connections
 
-The new diagram uses the supplied component-side photograph. Electrical pin
-numbers come from `AssemblyFiles/KiCAD/FreeEEG128-alpha.kicad_pcb`.
+The diagram uses the supplied component-side photograph. Its enlarged detail is
+rotated 45° so **BOOT is above RESET**, matching the FreeEEG32 reference. The
+physical mapping is identical to the 32: **5 V/GND above BOOT; SWD below RESET**.
+Each colored leader ends on an individual metal pin base, not the header body.
+Electrical pin numbers come from `AssemblyFiles/KiCAD/FreeEEG128-alpha.kicad_pcb`.
+
+In the enlarged detail, the **upper J2** header has 5 V at upper left and GND at
+lower left. The **lower J1** header has SWDIO at upper left, SWCLK at upper right,
+and NRST at lower left. Its lower-right square pad is PB2/BOOT1 and stays unused.
+These positions refer to the component side, as in the FreeEEG32 guide.
 
 | Target header | Pin | Signal | Connect to |
 | --- | --- | --- | --- |

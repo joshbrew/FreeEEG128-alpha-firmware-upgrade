@@ -104,20 +104,25 @@ Checks and backups restore the previous acquisition state. [Helper details](Flas
 
 ![FreeEEG128 alpha photo and verified ST-Link wiring](SetupGuides/images/freeeeg128-swd.svg)
 
-| ST-Link signal | FreeEEG128 connection |
+| Signal / source | FreeEEG128 connection |
 | --- | --- |
 | SWDIO | **J1 pin 4 — PA13** |
 | SWCLK | **J1 pin 3 — PA14** |
 | NRST / STM32 RST | **J1 pin 2 — NRST**, beside RESET |
 | GND | **J2 pin 2 — GND**, beside BOOT |
+| Separate board 5 V supply | **J2 pin 4 — 5 V power input**, above BOOT |
 | VTref / VAPP input, if present | Measured **3.3 V target I/O supply** |
 
 **J1 pin 1 (square pad) is PB2 / BOOT1, not ground.** J2 pin 4 is the
 5 V input, not VTref. Power the board normally; leave probe power outputs
 disconnected. Keep electrodes disconnected during programming.
 
-The diagram uses the supplied component-side photo. Pin numbers are checked
-against the versioned KiCAD PCB; views from the opposite side are mirrored.
+The enlarged detail turns the supplied photo 45° to match the FreeEEG32 guide:
+**5 V/GND above BOOT; SWD below RESET**, with the same pin positions. On the lower
+SWD header, SWDIO is upper left, SWCLK upper right and NRST lower left; on the
+upper power header, 5 V is upper left and GND lower left. Individual leaders point
+to the metal pin bases. Pin numbers are checked against the versioned KiCAD PCB;
+views from the opposite side are mirrored.
 [Detailed wiring, clone dongles and recovery](SetupGuides/FreeEEG128_Programming_and_Updates.md).
 
 ## Features added by this fork
