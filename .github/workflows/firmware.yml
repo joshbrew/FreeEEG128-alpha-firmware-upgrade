@@ -60,7 +60,7 @@ jobs:
     name: Update precompiled downloads and rolling alpha
     needs: [launchers, uf2]
     if: >-
-      github.repository == 'joshbrew/FreeEEG128-alpha' &&
+      github.repository == 'joshbrew/FreeEEG128-alpha-firmware-upgrade' &&
       github.ref == 'refs/heads/main' &&
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-24.04

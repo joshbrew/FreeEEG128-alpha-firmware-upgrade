@@ -43,3 +43,19 @@ and the loader. Physical oscillator failure, accuracy and USB recovery still nee
 bench validation.
 
 [Validation commands](VALIDATION.md) / [Clock and recovery behavior](Alpha/README.md#clock-profiles-and-hang-recovery).
+
+## Stacking guide follow-up — 2026-10-22
+
+Compared the new local FreeEEG32 stacking guide through `86b8029` (introduced in
+`c23ecae`). Added FreeEEG128 instructions and packaged them as `STACKING.md`.
+FreeEEG128 uses R112 / J302.5–6 for oscillator isolation and R110 / J302.3–4 for
+sync isolation; shared contacts are J303.1 (HSE clock), J301.6 (ADC sync) and
+J303.2 (GND). U7 feeds HSE, which PA8/MCO1 forwards to the ADCs. These are not
+the FreeEEG32 resistor/header numbers or its independent processor crystal.
+
+The instructions use 500 Hz and the Alpha helpers, retain separate 128-channel
+USB streams, and start followers before the master because FreeEEG128 START
+sends sync. PCB nets, all sixteen CLKIN/SYNC connections and firmware paths were
+checked; physical stack timing, loading and alignment remain untested.
+
+[Stacking guide](../SetupGuides/FreeEEG128_Stacking.md).

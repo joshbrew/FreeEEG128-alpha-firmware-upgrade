@@ -55,6 +55,8 @@ class RepositoryLayoutTests(unittest.TestCase):
                 archive.extractall(extracted)
             self.assertEqual(layout.check_release(extracted), [])
             self.assertIn('(WIRING.md)', (extracted / 'README.md').read_text(encoding='utf-8'))
+            self.assertIn('(STACKING.md)', (extracted / 'README.md').read_text(encoding='utf-8'))
+            self.assertIn('(CONTROL.md#usb-serial-controls)', (extracted / 'STACKING.md').read_text(encoding='utf-8'))
 
     def test_packaging_rejects_an_image_that_changed_after_build(self):
         with tempfile.TemporaryDirectory() as folder:

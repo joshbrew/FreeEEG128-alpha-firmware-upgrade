@@ -53,6 +53,7 @@ def create_release(out, root):
         'Firmware/VALIDATION.md': 'VALIDATION.md',
         'Firmware/UPSTREAM.md': 'UPSTREAM.md',
         'SetupGuides/FreeEEG128_Programming_and_Updates.md': 'WIRING.md',
+        'SetupGuides/FreeEEG128_Stacking.md': 'STACKING.md',
         'Firmware/tools/README.md': 'tools/README.md',
     }
     for name in ('freeeeg128-swd.svg', 'freeeeg128-swd.png', 'st-link-v2-reference.jpg'):

@@ -125,6 +125,14 @@ to the metal pin bases. Pin numbers are checked against the versioned KiCAD PCB;
 views from the opposite side are mirrored.
 [Detailed wiring, clone dongles and recovery](SetupGuides/FreeEEG128_Programming_and_Updates.md).
 
+## Stacking boards
+
+Use one board's **8.192 MHz U7 clock** for the stack. No CPU-clock setting or
+separate master/follower firmware is needed. Followers need their local oscillator
+and sync links isolated; each board retains its own USB data connection.
+
+**[Stacking instructions: wiring, configuration and start order](SetupGuides/FreeEEG128_Stacking.md)**
+
 ## Features added by this fork
 
 | Feature | FreeEEG128 implementation |
@@ -133,6 +141,7 @@ views from the opposite side are mirrored.
 | Ready-to-flash downloads and releases | Tracked 80 MHz ZIP/HEX/UF2, SHA256 checksums, fresh-clone defaults and checked automatic publishing |
 | Build and flash launchers | Windows/Linux menus, automatic tool setup, precompiled-image support |
 | Board detection and update checks | Serial/drive detection, multi-board selection and running-build verification |
+| Multi-board stacking guide | Board-specific R112/R110 isolation, shared clock/sync/GND contacts, 500 Hz setup and separate USB streams; physical stack validation pending |
 | Settings menu and serial commands | ADS131M08 rates, 128 per-channel gains, presets and explicit save/load |
 | Board and recording checks | Sixteen-ADC register readback, measured DRDY/USB rates, frame-loss checks |
 | Support reports and settings files | Sample-free support reports; validated 128-channel backup/restore |

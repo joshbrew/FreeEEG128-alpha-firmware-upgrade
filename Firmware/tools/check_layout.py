@@ -65,6 +65,7 @@ def check_source(root):
         'Firmware/Base/licenses/ST-HAL.md', 'Firmware/Base/licenses/CMSIS.txt',
         'Firmware/Legacy/STM32CubeIDE/workspace_1.5.1/STM32H743ZI_ads131_80MHz/Src/main.c',
         'AssemblyFiles/KiCAD/FreeEEG128-alpha.kicad_pcb',
+        'SetupGuides/FreeEEG128_Stacking.md',
         'SetupGuides/images/freeeeg128-swd.png', 'SetupGuides/images/freeeeg128-swd.svg'}
     errors = ['Missing source file: ' + n for n in sorted(required) if not (root / n).is_file()]
     for old in ('KiCAD', 'STM32CubeIDE', 'datasheets', 'IMG20211127130429.jpg',
@@ -101,7 +102,7 @@ def check_release(path):
             return ['Release ZIP contains duplicate paths']
     try:
         required = COMMON | WRAPPERS | IMAGES | {f'tools/{n}' for n in TOOLS} | {
-            'CONTROL.md', 'WIRING.md', 'VALIDATION.md', 'UPSTREAM.md', 'manifest.json', 'flash.py', 'flash.cmd',
+            'CONTROL.md', 'WIRING.md', 'STACKING.md', 'VALIDATION.md', 'UPSTREAM.md', 'manifest.json', 'flash.py', 'flash.cmd',
             'device.py', 'control.py', 'board_tools.py', 'freeeeg128-swd.svg', 'freeeeg128-swd.png',
             'st-link-v2-reference.jpg', 'licenses/ST-HAL.md', 'licenses/CMSIS.txt',
             'licenses/ST-USB-MSC.md', 'licenses/ST-USB-MSC-UPSTREAM.txt'}

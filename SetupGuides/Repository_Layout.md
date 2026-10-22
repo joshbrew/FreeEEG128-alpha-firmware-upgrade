@@ -30,6 +30,7 @@ AssemblyFiles/
   KiCAD/                        Original project and fabrication/assembly outputs
   datasheets/                   Original component datasheets
 SetupGuides/
+  FreeEEG128_Stacking.md         Shared-clock/sync wiring and multi-board setup
   images/                       Original photos, screenshots and new wiring diagram
 OpenVIBE/                        Historical integration and compatibility note
 ```
@@ -67,7 +68,7 @@ Pull that generated commit before pushing again. [Download guide](../Precompiled
 ## Precompiled release layout
 
 Extract the release ZIP into its own folder. Its root contains the same main menu,
-firmware images/manifest, Python helpers, README, CONTROL, WIRING and VALIDATION.
+firmware images/manifest, Python helpers, README, CONTROL, WIRING, STACKING and VALIDATION.
 `Flash/` holds the same named actions, `tools/` holds their shared setup/routing,
 and `licenses/` holds vendor notices. The wiring images are included for offline use.
 

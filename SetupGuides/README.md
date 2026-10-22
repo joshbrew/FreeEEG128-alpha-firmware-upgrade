@@ -5,6 +5,7 @@
 | Windows build, first installation and USB updates | [Windows commands](../Flash/Windows/README.md) |
 | Linux build, first installation and USB updates | [Linux commands](../Flash/Linux/README.md) |
 | Connect ST-Link and recover a board | [Programming and updates](FreeEEG128_Programming_and_Updates.md) |
+| Stack boards using one clock and shared sync | [FreeEEG128 stacking](FreeEEG128_Stacking.md) |
 | Identify the board headers | [Wiring diagram: PNG](images/freeeeg128-swd.png) / [SVG](images/freeeeg128-swd.svg) |
 | Configure sampling/gain and saved settings | [Application controls](../Firmware/Alpha/README.md#usb-serial-controls) |
 | Check recording, back up settings or save a report | [Host helpers](../Flash/HELPERS.md) |

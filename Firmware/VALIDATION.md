@@ -75,3 +75,17 @@ Windows PowerShell and Git Bash. The added GitHub workflow targets this reposito
 and its `main` branch, gates publishing on all build/helper jobs, and avoids force
 pushing generated commits. GitHub Actions and release publishing have not been
 executed from this working tree; they begin after these changes are pushed.
+
+## Stacking guide — 2026-10-22
+
+Reviewed the new FreeEEG32 guide and traced FreeEEG128 U7/R112/HSE/PA8-MCO1,
+R110/PD4/ADC sync, and J301/J302/J303 contacts against the PCB and application.
+All sixteen ADCs share the traced CLKIN and SYNC nets. Instructions use the
+128-channel rates, 30 ms software settling window and follower-first/master-last
+START order. Source and offline ZIP navigation/content checks cover the new guide.
+No firmware behavior was changed and no physical stack was tested.
+
+Bench work must verify follower isolation with power off, clock fanout/edge timing,
+shared sync pulse timing, startup/reset behavior, cross-board DRDY and a common
+recorded signal. Individual-board tests and matching packet counters do not
+establish cross-board sample alignment.

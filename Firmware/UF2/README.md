@@ -87,10 +87,13 @@ CONTROL and WIRING guides; validation and vendor licenses are included offline.
 
 The included GitHub workflow builds all seven profiles and tests Windows/Linux
 helpers. After successful pushes to `main`, it refreshes the tracked downloads and
-[rolling alpha release](https://github.com/joshbrew/FreeEEG128-alpha/releases/tag/latest-alpha).
+[rolling alpha release](https://github.com/joshbrew/FreeEEG128-alpha-firmware-upgrade/releases/tag/latest-alpha).
 Publishing begins when the workflow is pushed. Other clock profiles remain workflow
 artifacts; generated intermediates remain ignored. Pull the automatic download
 commit before your next push.
+
+For multiple boards, follow the [stacking guide](../../SetupGuides/FreeEEG128_Stacking.md)
+for clock/sync isolation, the three shared contacts, and the startup order.
 
 ## Wiring and entry
 

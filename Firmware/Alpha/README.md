@@ -56,6 +56,10 @@ can otherwise halve DRDY indications.
 The driver drains FIFO data during filter settling and only then queues samples. The external reference setting follows the existing
 REF2025 board. [TI datasheet](https://www.ti.com/lit/ds/symlink/ads131m08.pdf).
 
+For more than one board, see the [stacking guide](../../SetupGuides/FreeEEG128_Stacking.md).
+It isolates follower oscillator/sync outputs, shares HSE through J303.1 and ADC
+sync through J301.6, and starts the master last because START generates sync.
+
 ## USB serial controls
 
 VID/PID `0483:5740`, UID-based serial and product **FreeEEG128 EEG + Control**.

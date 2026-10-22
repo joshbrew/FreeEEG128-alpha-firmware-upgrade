@@ -9,7 +9,7 @@ These files are tracked in Git. A local default 80 MHz build refreshes them, so
 include the updated `Precompiled/` files when committing a firmware change.
 Once these changes are pushed to `main`, GitHub Actions tests all seven clock profiles and the
 Windows/Linux helpers, then commits the verified default 80 MHz downloads here
-and updates the [rolling alpha release](https://github.com/joshbrew/FreeEEG128-alpha/releases/tag/latest-alpha).
+and updates the [rolling alpha release](https://github.com/joshbrew/FreeEEG128-alpha-firmware-upgrade/releases/tag/latest-alpha).
 Run `git pull --ff-only` before your next push to pick up that generated commit.
 On a fresh clone, menu **3** automatically uses this folder's factory HEX; menu
 **5** uses its UF2. If a local build exists, those actions prefer that build.
